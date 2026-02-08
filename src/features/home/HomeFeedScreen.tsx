@@ -1,5 +1,7 @@
 import React from 'react';
 import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../app/navigation/RootNavigator';
 import {colors, radius, shadows, spacing, typography} from '../../shared/theme/tokens';
 import {mockFlights, FlightCardModel} from './mockFlights';
 
@@ -13,9 +15,11 @@ function formatUsd(value: number) {
   }).format(value);
 }
 
-export function HomeFeedScreen() {
+type Props = NativeStackScreenProps<RootStackParamList, 'HomeFeed'>;
+
+export function HomeFeedScreen({navigation}: Props) {
   const renderFlight = ({item}: {item: FlightCardModel}) => (
-    <Pressable style={styles.card}>
+    <Pressable style={styles.card} onPress={() => navigation.navigate('FlightDetail', {flightId: item.id})}>
       <View style={styles.cardTopRow}>
         <Text style={styles.route}>{item.route}</Text>
         {item.badge ? <Text style={styles.badge}>{item.badge}</Text> : null}
@@ -31,13 +35,13 @@ export function HomeFeedScreen() {
       <Text style={styles.eyebrow}>NEAREST AIRPORT: TETERBORO</Text>
       <Text style={styles.title}>Personalized Empty Legs</Text>
 
-      <View style={styles.searchBar}>
+      <Pressable style={styles.searchBar} onPress={() => navigation.navigate('SearchFilter')}>
         <Text style={styles.searchText}>Search route, airport, or aircraft</Text>
-      </View>
+      </Pressable>
 
       <View style={styles.chipRow}>
         {chips.map(chip => (
-          <Pressable key={chip} style={styles.chip}>
+          <Pressable key={chip} style={styles.chip} onPress={() => navigation.navigate('SearchFilter')}>
             <Text style={styles.chipText}>{chip}</Text>
           </Pressable>
         ))}

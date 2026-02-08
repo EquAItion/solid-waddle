@@ -6,6 +6,12 @@ export type FlightCardModel = {
   seats: number;
   priceUsd: number;
   badge?: string;
+  operator: string;
+  wifi: boolean;
+  petsAllowed: boolean;
+  baggageKg: number;
+  rangeNm: number;
+  cancellationPolicy: string;
 };
 
 export const mockFlights: FlightCardModel[] = [
@@ -16,7 +22,13 @@ export const mockFlights: FlightCardModel[] = [
     aircraft: 'Gulfstream G550',
     seats: 8,
     priceUsd: 18900,
-    badge: 'Invite-only'
+    badge: 'Invite-only',
+    operator: 'Aureline Aviation',
+    wifi: true,
+    petsAllowed: true,
+    baggageKg: 180,
+    rangeNm: 6750,
+    cancellationPolicy: 'Full refund within 24 hours. 80% credit up to 48 hours before departure.'
   },
   {
     id: 'leg-206',
@@ -24,7 +36,13 @@ export const mockFlights: FlightCardModel[] = [
     departureWindow: 'Tomorrow, 08:10 - 09:00',
     aircraft: 'Challenger 650',
     seats: 7,
-    priceUsd: 14200
+    priceUsd: 14200,
+    operator: 'North Crest Charter',
+    wifi: true,
+    petsAllowed: false,
+    baggageKg: 140,
+    rangeNm: 4000,
+    cancellationPolicy: '90% refund up to 72 hours before departure, then non-refundable fare.'
   },
   {
     id: 'leg-332',
@@ -32,6 +50,16 @@ export const mockFlights: FlightCardModel[] = [
     departureWindow: 'Sun, 14:20 - 15:15',
     aircraft: 'Praetor 600',
     seats: 6,
-    priceUsd: 12650
+    priceUsd: 12650,
+    operator: 'Blue Horizon Executive',
+    wifi: true,
+    petsAllowed: true,
+    baggageKg: 120,
+    rangeNm: 4018,
+    cancellationPolicy: '80% credit up to 24 hours before departure. No-show forfeits full fare.'
   }
 ];
+
+export function findFlightById(flightId: string) {
+  return mockFlights.find(item => item.id === flightId);
+}
